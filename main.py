@@ -67,8 +67,11 @@ class MyWindow(QtWidgets.QMainWindow):
 
     def bind_last_change(self):
         self.ui.Sn.textChanged.connect(lambda: self.set_position(38))
+        self.ui.comboSn.currentTextChanged.connect(lambda: self.set_position(38))
         self.ui.Sb.textChanged.connect(lambda: self.set_position(37))
+        self.ui.comboSb.currentTextChanged.connect(lambda: self.set_position(37))
         self.ui.Ub.textChanged.connect(lambda: self.set_position(36))
+        self.ui.comboUb.currentTextChanged.connect(lambda: self.set_position(36))
         self.ui.Xd.textChanged.connect(lambda: self.set_position(35))
         self.ui.Xq.textChanged.connect(lambda: self.set_position(34))
         self.ui.Xd1.textChanged.connect(lambda: self.set_position(33))
@@ -76,6 +79,7 @@ class MyWindow(QtWidgets.QMainWindow):
         self.ui.Xd2.textChanged.connect(lambda: self.set_position(31))
         self.ui.Xq2.textChanged.connect(lambda: self.set_position(30))
         self.ui.S2.textChanged.connect(lambda: self.set_position(29))
+        self.ui.comboS2.currentTextChanged.connect(lambda: self.set_position(29))
         self.ui.Ug.textChanged.connect(lambda: self.set_position(28))
         self.ui.Zb.textChanged.connect(lambda: self.set_position(27))
         self.ui.Ib.textChanged.connect(lambda: self.set_position(26))

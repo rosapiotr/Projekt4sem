@@ -271,7 +271,7 @@ class Generator:
             pass
 
     @staticmethod
-    def check_combo_VA(window):
+    def check_combo_Sn(window):
         if (window.ui.comboSn.currentText()) == "KVA":
             mn = 1000
         elif (window.ui.comboSn.currentText()) == "MVA":
@@ -283,7 +283,31 @@ class Generator:
         return mn
 
     @staticmethod
-    def check_combo_V(window):
+    def check_combo_Sb(window):
+        if (window.ui.comboSb.currentText()) == "KVA":
+            mn = 1000
+        elif (window.ui.comboSb.currentText()) == "MVA":
+            mn = 1000000
+        elif (window.ui.comboSb.currentText()) == "GVA":
+            mn = 1000000000
+        else:
+            return 1
+        return mn
+
+    @staticmethod
+    def check_combo_S2(window):
+        if (window.ui.comboS2.currentText()) == "KVA":
+            mn = 1000
+        elif (window.ui.comboS2.currentText()) == "MVA":
+            mn = 1000000
+        elif (window.ui.comboS2.currentText()) == "GVA":
+            mn = 1000000000
+        else:
+            return 1
+        return mn
+
+    @staticmethod
+    def check_comboUb(window):
         if (window.ui.comboUb.currentText()) == "KV":
             mn = 1000
         elif (window.ui.comboUb.currentText()) == "MV":
@@ -293,10 +317,10 @@ class Generator:
         return mn
 
     def calculate(self, window):
-        Snm = Generator.check_combo_VA(window)
-        Sbm = Generator.check_combo_VA(window)
-        Ubm = Generator.check_combo_V(window)
-        S2m = Generator.check_combo_VA(window)
+        Snm = Generator.check_combo_Sn(window)
+        Sbm = Generator.check_combo_Sb(window)
+        Ubm = Generator.check_comboUb(window)
+        S2m = Generator.check_combo_S2(window)
 
         if window.position > 28:
             Ug = 1.05 * self.Ub * Ubm * (np.cos(np.pi/36) + 1j*np.sin(np.pi/36))
@@ -330,7 +354,7 @@ class Generator:
                 deltaIgpudeg = np.degrees(deltaIgpu)
                 window.ui.deltaIgpu.setText(str(round(deltaIgpudeg, 5)))
             else:
-                deltaIgpu = float(window.ui.deltaIgpu.text())
+                deltaIgpu = np.radians(float(window.ui.deltaIgpu.text()))
             if window.position > 21:
                 EQ = Ugpu + 1j * (self.Xq * Igpu)
                 window.ui.EQ.setText(str((round(EQ.real, 5) + round(EQ.imag, 5) * 1j))[1:-1])
@@ -339,7 +363,7 @@ class Generator:
                 phideg = np.degrees(phi)
                 window.ui.phi.setText(str(round(phideg, 5)))
             else:
-                phi = float(window.ui.phi.text())
+                phi = np.radians(float(window.ui.phi.text()))
             if window.position > 19:
                 BC = np.absolute(Igpu)*np.absolute(self.Xq)
                 window.ui.BC.setText(str(round(BC, 5)))
@@ -360,13 +384,13 @@ class Generator:
                 alfadeg = np.degrees(alfa)
                 window.ui.alfa.setText(str(round(alfadeg, 5)))
             else:
-                alfa = float(window.ui.alfa.text())
+                alfa = np.radians(float((window.ui.alfa.text())))
             if window.position > 15:
                 gamma = alfa + phi
                 gammadeg = np.degrees(gamma)
                 window.ui.gamma.setText(str(round(gammadeg, 5)))
             else:
-                gamma = float(window.ui.gamma.text())
+                gamma = np.radians(float(window.ui.gamma.text()))
             if window.position > 14:
                 Iqpu = np.absolute(Igpu) * np.sin(alfa)
                 window.ui.Iqpu.setText(str(round(Iqpu, 5)))

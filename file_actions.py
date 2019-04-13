@@ -11,10 +11,10 @@ def save_file(window):
 
 
 def write_file(window, file):
-    Snm = Generator.check_combo_VA(window)
-    Sbm = Generator.check_combo_VA(window)
-    Ubm = Generator.check_combo_V(window)
-    S2m = Generator.check_combo_VA(window)
+    Snm = Generator.check_combo_Sn(window)
+    Sbm = Generator.check_combo_Sb(window)
+    Ubm = Generator.check_comboUb(window)
+    S2m = Generator.check_combo_S2(window)
     file.write("Sn = " + str(float(window.gen.Sn) * Snm))
     file.write("\nSb = " + str(float(window.gen.Sb) * Sbm))
     file.write("\nUb = " + str(float(window.gen.Ub) * Ubm))
