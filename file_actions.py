@@ -88,56 +88,86 @@ def get_files(window):
                 d = line.split(" = ")
                 data[d[0]] = d[1]
             if data.__contains__("Sn"):
-                Sn = float(data["Sn"])
-                if Sn % 1000 == 0:
-                    if Sn % 1000000000 == 0:
-                        Sn = Sn / 1000000000
-                        window.ui.comboSn.setCurrentText("GVA")
-                    elif Sn % 1000000 == 0:
-                        Sn = Sn / 1000000
-                        window.ui.comboSn.setCurrentText("MVA")
+                try:
+                    Sn = float(data["Sn"])
+                    if Sn != 0:
+                        if Sn % 1000 == 0:
+                            if Sn % 1000000000 == 0:
+                                Sn = Sn / 1000000000
+                                window.ui.comboSn.setCurrentText("GVA")
+                            elif Sn % 1000000 == 0:
+                                Sn = Sn / 1000000
+                                window.ui.comboSn.setCurrentText("MVA")
+                            else:
+                                Sn = Sn / 1000
+                                window.ui.comboSn.setCurrentText("KVA")
+                        window.ui.Sn.setText(str(Sn))
                     else:
-                        Sn = Sn / 1000
-                        window.ui.comboSn.setCurrentText("KVA")
-                window.ui.Sn.setText(str(Sn))
-            if data.__contains__("Ub"):
-                Ub = float(data["Ub"])
-                if Ub % 1000 == 0:
-                    if Ub % 1000000 == 0:
-                        Ub = Ub / 1000000
-                        window.ui.comboUb.setCurrentText("MV")
-                    else:
-                        Ub = Ub / 1000
-                        window.ui.comboUb.setCurrentText("KV")
-                window.ui.Ub.setText(str(Ub))
+                        window.ui.comboSn.setCurrentText("VA")
+                        window.ui.Sn.setText(str(Sn))
+                except ValueError:
+                    window.ui.comboSn.setCurrentText("VA")
+                    window.ui.Sn.setText(str("0"))
             if data.__contains__("Sb"):
-                Sb = float(data["Sb"])
-                if Sb % 1000 == 0:
-                    if Sb % 1000000000 == 0:
-                        Sb = Sb / 1000000000
-                        window.ui.comboSb.setCurrentText("GVA")
-                    elif Sb % 1000000 == 0:
-                        Sb = Sb / 1000000
-                        window.ui.comboSb.setCurrentText("MVA")
+                try:
+                    Sb = float(data["Sb"])
+                    if Sb != 0:
+                        if Sb % 1000 == 0:
+                            if Sb % 1000000000 == 0:
+                                Sb = Sb / 1000000000
+                                window.ui.comboSb.setCurrentText("GVA")
+                            elif Sb % 1000000 == 0:
+                                Sb = Sb / 1000000
+                                window.ui.comboSb.setCurrentText("MVA")
+                            else:
+                                Sb = Sb / 1000
+                                window.ui.comboSb.setCurrentText("KVA")
+                        window.ui.Sb.setText(str(Sb))
                     else:
-                        Sb = Sb / 1000
-                        window.ui.comboSb.setCurrentText("KVA")
-                window.ui.Sb.setText(str(Sb))
+                        window.ui.comboSb.setCurrentText("VA")
+                        window.ui.Sb.setText(str(Sb))
+                except ValueError:
+                    window.ui.comboSb.setCurrentText("VA")
+                    window.ui.Sb.setText("0")
+            if data.__contains__("Ub"):
+                try:
+                    Ub = float(data["Ub"])
+                    if Ub != 0:
+                        if Ub % 1000 == 0:
+                            if Ub % 1000000 == 0:
+                                Ub = Ub / 1000000
+                                window.ui.comboUb.setCurrentText("MV")
+                            else:
+                                Ub = Ub / 1000
+                                window.ui.comboUb.setCurrentText("KV")
+                        window.ui.Ub.setText(str(Ub))
+                    else:
+                        window.ui.comboUb.setCurrentText("V")
+                        window.ui.Ub.setText(str(Ub))
+                except ValueError:
+                    window.ui.comboUb.setCurrentText("V")
+                    window.ui.Ub.setText("0")
             if data.__contains__("S2"):
-                S2 = complex(data["S2"])
-                if S2.real % 1000 == 0 and S2.imag % 1000 == 0:
-                    if S2.real % 1000000000 == 0 and S2.imag % 1000000000 == 0:
-                        S2 = S2 / 1000000000
-                        window.ui.comboS2.setCurrentText("GVA")
-                    elif S2.real % 1000000 == 0 and S2.imag % 1000000 == 0:
-                        S2 = S2 / 1000000
-                        window.ui.comboS2.setCurrentText("MVA")
+                try:
+                    S2 = complex(data["S2"])
+                    if S2 != 0j:
+                        if S2.real % 1000 == 0 and S2.imag % 1000 == 0:
+                            if S2.real % 1000000000 == 0 and S2.imag % 1000000000 == 0:
+                                S2 = S2 / 1000000000
+                                window.ui.comboS2.setCurrentText("GVA")
+                            elif S2.real % 1000000 == 0 and S2.imag % 1000000 == 0:
+                                S2 = S2 / 1000000
+                                window.ui.comboS2.setCurrentText("MVA")
+                            else:
+                                S2 = S2 / 1000
+                                window.ui.comboS2.setCurrentText("KVA")
+                            window.ui.S2.setText(str(S2)[1:-1])
                     else:
-                        S2 = S2 / 1000
-                        window.ui.comboS2.setCurrentText("KVA")
-                    window.ui.S2.setText(str(S2)[1:-1])
-                if S2 == 0j:
-                    window.ui.S2.setText(str(S2))
+                        window.ui.comboS2.setCurrentText("VA")
+                        window.ui.S2.setText(str(S2))
+                except ValueError:
+                    window.ui.comboS2.setCurrentText("VA")
+                    window.ui.S2.setText(str("0j"))
 
             if data.__contains__("Xd"):
                 window.ui.Xd.setText(str(data["Xd"]))

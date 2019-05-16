@@ -324,9 +324,12 @@ class Generator:
 
         if window.position > 28:
             Ug = 1.05 * self.Ub * Ubm * (np.cos(np.pi/36) + 1j*np.sin(np.pi/36))
-            window.ui.Ug.setText(str((round(Ug.real, 5) + round(Ug.imag, 5) * 1j))[1:-1])
+            if Ug != 0j:
+                window.ui.Ug.setText(str((round(Ug.real, 5) + round(Ug.imag, 5) * 1j))[1:-1])
+            else:
+                window.ui.Ug.setText("0j")
         else:
-            Ug = complex(window.ui.Ug.text())
+            Ug = window.ui.Ug.text()
         try:
             if window.position > 27:
                 Zb = (self.Ub*Ubm)**2/(self.Sb*Sbm)
@@ -351,7 +354,7 @@ class Generator:
                 Igpu = complex(window.ui.Igpu.text())
             if window.position > 22:
                 deltaIgpu = np.arctan(Igpu.imag/Igpu.real)
-                deltaIgpudeg = np.degrees(deltaIgpu)
+                deltaIgpudeg = float(np.degrees(deltaIgpu))
                 window.ui.deltaIgpu.setText(str(round(deltaIgpudeg, 5)))
             else:
                 deltaIgpu = np.radians(float(window.ui.deltaIgpu.text()))
@@ -360,7 +363,7 @@ class Generator:
                 window.ui.EQ.setText(str((round(EQ.real, 5) + round(EQ.imag, 5) * 1j))[1:-1])
             if window.position > 20:
                 phi = np.arctan(Ugpu.imag / Ugpu.real) - deltaIgpu
-                phideg = np.degrees(phi)
+                phideg = float(np.degrees(phi))
                 window.ui.phi.setText(str(round(phideg, 5)))
             else:
                 phi = np.radians(float(window.ui.phi.text()))
@@ -381,13 +384,13 @@ class Generator:
                 AB = float(window.ui.AB.text())
             if window.position > 16:
                 alfa = np.arctan(OA/(AB + BC))
-                alfadeg = np.degrees(alfa)
+                alfadeg = float(np.degrees(alfa))
                 window.ui.alfa.setText(str(round(alfadeg, 5)))
             else:
                 alfa = np.radians(float((window.ui.alfa.text())))
             if window.position > 15:
                 gamma = alfa + phi
-                gammadeg = np.degrees(gamma)
+                gammadeg = float(np.degrees(gamma))
                 window.ui.gamma.setText(str(round(gammadeg, 5)))
             else:
                 gamma = np.radians(float(window.ui.gamma.text()))

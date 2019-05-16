@@ -1,5 +1,6 @@
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMessageBox
+from plot_window import Ui_Dialog
 
 import file_actions as fa
 from layout import Ui_MainWindow
@@ -24,6 +25,25 @@ class MyWindow(QtWidgets.QMainWindow):
         self.ui.help.clicked.connect(self.display_help)
         self.ui.calculate.clicked.connect(lambda: self.gen.calculate(self))
         self.ui.save.clicked.connect(lambda: fa.save_file(self))
+        self.ui.plot.clicked.connect(self.plot_diagram)
+
+    def plot_diagram(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui2 = Ui_Dialog()
+        self.ui2.setupUi(self.window, self.gen)
+        self.window.show()
+    #     MainWindow.hide()
+    #     app = pg.mkQApp()
+    #     plotter = plot_diagram.PW()
+    #     plotter.show()
+    #     app.exec_()
+
+    def closeEvent(self, event):
+        self.close()
+        try:
+            self.window.close()
+        except Exception:
+            pass
 
     def bind_fields(self):
         self.ui.Sn.textChanged.connect(self.gen.set_Sn)

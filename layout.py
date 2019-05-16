@@ -717,6 +717,9 @@ class Ui_MainWindow(object):
         font.setPointSize(15)
         self.label_56.setFont(font)
         self.label_56.setObjectName("label_56")
+        self.plot = QtWidgets.QPushButton(self.centralwidget)
+        self.plot.setGeometry(QtCore.QRect(990, 20, 93, 28))
+        self.plot.setObjectName("plot")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1144, 26))
@@ -855,6 +858,7 @@ class Ui_MainWindow(object):
         self.label_62.setText(_translate("MainWindow", "<html><head/><body><p>V</p></body></html>"))
         self.label_63.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-family:\'sans-serif\'; color:#000000; background-color:transparent;\">V</span></p></body></html>"))
         self.label_56.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-family:\'serif\'; color:#222222; background-color:transparent;\">°</span></p></body></html>"))
+        self.plot.setText(_translate("MainWindow", "Plot"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.browse.setText(_translate("MainWindow", "Import data from file"))
 
