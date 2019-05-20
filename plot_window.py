@@ -7,14 +7,19 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import pyqtgraph as pg
 from pyqtgraph import PlotWidget
 import numpy as np
 
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog, gen):
+        # I might want to display point coords on hover
+        pg.setConfigOption('background', 'w')
+        pg.setConfigOption('foreground', 'k')
         Dialog.setObjectName("Dialog")
         Dialog.resize(600, 900)
+        self.a = 13
         self.i = 0
         self.gen = gen
         (xrange, yrange) = self.makeVector()
@@ -26,6 +31,8 @@ class Ui_Dialog(object):
         self.plotw.setGeometry(QtCore.QRect(0, 0, 607, 854))
         self.plotw.setObjectName("plotw")
         self.plotw.getViewBox().invertX(True)
+        self.plotw.plot([1, -xrange-0.5], [0, 0], pen='k')
+        self.plotw.plot([0, 0], [-1, yrange+0.5], pen='k')
         self.plotw.setXRange(0, -xrange)
         # self.plotw.setYRange(0, yrange)
         self.plotw.getViewBox().setAspectLocked(True)
@@ -71,6 +78,7 @@ class Ui_Dialog(object):
             xrange = -A[0]
         else:
             self.limit = 39
+        self.flag = self.limit
 
         self.x = self.x + [A[0], C[0], B[0], B[0], B[0], B[0], B[0], B[0], B[0], IX2[1], B[0], IX1[1], B[0], IX[1],
                            B[0], IX2[1], B[0], IX1[1], B[0], IX[1], 0, IX2[1], 0, IX1[1], 0, IX[1]]
@@ -79,8 +87,23 @@ class Ui_Dialog(object):
         return xrange, IX[0]
 
     def plotDiag(self):
+        # I need to handle a situation when there are no values yet
+        if self.i < 5:
+            color = 4
+        elif self.i < 11:
+            color = 7
+        elif self.i < self.a:
+            color = 6
+            if self.flag == 41:
+                self.flag = 0
+                self.a = 15
+                color = 4
+        elif self.i < self.a + 24:
+            color = 12
+
+        pen = pg.mkPen(color, width=3)
         if self.i < self.limit:
-            self.plotw.plot(self.x[self.i:self.i + 2], self.y[self.i:self.i + 2])
+            self.plotw.plot(self.x[self.i:self.i + 2], self.y[self.i:self.i + 2], pen=pen)
             self.i = self.i + 2
             if self.i == self.limit - 1:
                 self.next.setDisabled(True)
