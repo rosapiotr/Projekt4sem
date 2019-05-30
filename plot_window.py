@@ -9,6 +9,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import pyqtgraph as pg
 from pyqtgraph import PlotWidget
+from pyqtgraph.Qt import QtGui, QtCore
 import numpy as np
 
 
@@ -19,8 +20,10 @@ class Ui_Dialog(object):
         pg.setConfigOption('foreground', 'k')
         Dialog.setObjectName("Dialog")
         Dialog.resize(600, 900)
+        # Dialog
         self.a = 13
         self.i = 0
+        self.flag = 0
         self.gen = gen
         (xrange, yrange) = self.makeVector()
         self.next = QtWidgets.QPushButton(Dialog)
@@ -39,6 +42,7 @@ class Ui_Dialog(object):
         self.plotw.setYRange(0, yrange)
         self.plotw.getPlotItem().getAxis("bottom").setLabel(text='d')  # , units="x")
         self.plotw.getPlotItem().getAxis("left").setLabel(text='q')  # , units="y")
+        self.plotw.addLegend()
         self.initUI()
 
         self.retranslateUi(Dialog)
@@ -80,10 +84,11 @@ class Ui_Dialog(object):
             self.limit = 39
         self.flag = self.limit
 
-        self.x = self.x + [A[0], C[0], B[0], B[0], B[0], B[0], B[0], B[0], B[0], IX2[1], B[0], IX1[1], B[0], IX[1],
-                           B[0], IX2[1], B[0], IX1[1], B[0], IX[1], 0, IX2[1], 0, IX1[1], 0, IX[1]]
-        self.y = self.y + [A[1], C[1], B[1], IX2[0], B[1], IX1[0], B[1], IX[0], IX2[0], IX2[0], IX1[0], IX1[0], IX[0],
-                           IX[0], B[1], IX2[0], B[1], IX1[0], B[1], IX[0], 0, IX2[0], 0, IX1[0], 0, IX[0]]
+        self.x = self.x + [A[0], C[0], B[0], B[0], B[0], B[0], B[0], B[0], B[0], IX[1], B[0], IX1[1], B[0], IX2[1],
+                           B[0], IX[1], B[0], IX1[1], B[0], IX2[1], 0, IX[1], 0, IX1[1], 0, IX2[1]]
+        self.y = self.y + [A[1], C[1], B[1], IX[0], B[1], IX1[0], B[1], IX2[0], IX[0], IX[0], IX1[0], IX1[0], IX2[0],
+                           IX2[0], B[1], IX[0], B[1], IX1[0], B[1], IX2[0], 0, IX[0], 0, IX1[0], 0, IX2[0]]
+
         return xrange, IX[0]
 
     def plotDiag(self):
@@ -98,17 +103,34 @@ class Ui_Dialog(object):
                 self.flag = 0
                 self.a = 15
                 color = 4
-        elif self.i < self.a + 24:
+        elif self.i in [self.a + 1, self.a + 7, self.a + 13, self.a + 19]:
+            color = 11
+        elif self.i in [self.a + 3, self.a + 9, self.a + 15, self.a + 21]:
             color = 12
+        elif self.i in [self.a + 5, self.a + 11, self.a + 17, self.a + 23]:
+            color = 13
 
         pen = pg.mkPen(color, width=3)
         if self.i < self.limit:
-            self.plotw.plot(self.x[self.i:self.i + 2], self.y[self.i:self.i + 2], pen=pen)
+            if self.i == 0:
+                self.plotw.plot(self.x[self.i:self.i + 2], self.y[self.i:self.i + 2], pen=pen, name='I')
+            elif self.i == 6:
+                self.plotw.plot(self.x[self.i:self.i + 2], self.y[self.i:self.i + 2], pen=pen, name='U')
+            elif self.i == self.a - 1:
+                self.plotw.plot(self.x[self.i:self.i + 2], self.y[self.i:self.i + 2], pen=pen, name='AC')
+            elif self.i == self.a + 1:
+                self.plotw.plot(self.x[self.i:self.i + 2], self.y[self.i:self.i + 2], pen=pen, name='IX"')
+            elif self.i == self.a + 3:
+                self.plotw.plot(self.x[self.i:self.i + 2], self.y[self.i:self.i + 2], pen=pen, name="IX'")
+            elif self.i == self.a + 5:
+                self.plotw.plot(self.x[self.i:self.i + 2], self.y[self.i:self.i + 2], pen=pen, name='IX')
+            else:
+                self.plotw.plot(self.x[self.i:self.i + 2], self.y[self.i:self.i + 2], pen=pen)
             self.i = self.i + 2
             if self.i == self.limit - 1:
                 self.next.setDisabled(True)
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        Dialog.setWindowTitle(_translate("Vector Diagram", "Vector Diagram"))
         self.next.setText(_translate("Dialog", "Next"))

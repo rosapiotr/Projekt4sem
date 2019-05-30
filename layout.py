@@ -779,7 +779,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("State Visualizer of Synchronous Generator", "State Visualizer of Synchronous Generator"))
         self.label.setText(_translate("MainWindow", "Input Data"))
         self.label_2.setText(_translate("MainWindow", "<html><head/><body><p>S<span style=\" vertical-align:sub;\">N</span></p></body></html>"))
         self.label_3.setText(_translate("MainWindow", "<html><head/><body><p>S<span style=\" vertical-align:sub;\">b</span></p></body></html>"))
@@ -844,7 +844,7 @@ class Ui_MainWindow(object):
         self.label_43.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-family:\'sans-serif\'; color:#000000; background-color:transparent;\">Ω</span></p></body></html>"))
         self.label_44.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-family:\'sans-serif\'; color:#000000; background-color:transparent;\">Ω</span></p></body></html>"))
         self.label_45.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-family:\'sans-serif\'; color:#000000; background-color:transparent;\">Ω</span></p></body></html>"))
-        self.label_46.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-family:\'sans-serif\'; color:#000000; background-color:transparent;\">Ω</span></p></body></html>"))
+        self.label_46.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-family:\'sans-serif\'; color:#000000; background-color:transparent;\">A</span></p></body></html>"))
         self.label_47.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-family:\'sans-serif\'; color:#000000; background-color:transparent;\">Ω</span></p></body></html>"))
         self.label_50.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-family:\'serif\'; color:#222222; background-color:transparent;\">° </span></p></body></html>"))
         self.label_51.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-family:\'serif\'; color:#222222; background-color:transparent;\">°</span></p></body></html>"))
@@ -858,3 +858,5 @@ class Ui_MainWindow(object):
         self.plot.setText(_translate("MainWindow", "Plot"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.browse.setText(_translate("MainWindow", "Import data from file"))
+
+
