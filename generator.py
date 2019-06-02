@@ -327,7 +327,8 @@ class Generator:
             if Ug != 0j:
                 window.ui.Ug.setText(str((round(Ug.real, 5) + round(Ug.imag, 5) * 1j))[1:-1])
             else:
-                window.ui.Ug.setText("0j")
+                window.ui.Ug.setText("")
+                Ug = 0j
         else:
             Ug = window.ui.Ug.text()
         try:
@@ -456,5 +457,5 @@ class Generator:
             if window.position > 1:
                 delta = (np.degrees(np.pi) / 2) - np.degrees(gamma)
                 window.ui.delta.setText(str(round(delta, 5)))
-        except ZeroDivisionError:
+        except (ZeroDivisionError, ValueError):
             pass

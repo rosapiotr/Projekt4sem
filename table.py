@@ -1,0 +1,185 @@
+# -*- coding: utf-8 -*-
+
+# Form implementation generated from reading ui file 'Table.ui'
+#
+# Created by: PyQt5 UI code generator 5.12.1
+#
+# WARNING! All changes made in this file will be lost!
+
+from PyQt5 import QtCore, QtGui, QtWidgets
+import numpy as np
+
+
+class Ui_Form(object):
+    def setupUi(self, Form):
+        self.x = 0
+        self.y = 0
+        Form.setObjectName("Form")
+        Form.resize(663, 831)
+        self.label = QtWidgets.QLabel(Form)
+        self.label.setGeometry(QtCore.QRect(10, 35, 111, 21))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.label.setFont(font)
+        self.label.setObjectName("label")
+        self.unit = QtWidgets.QLineEdit(Form)
+        self.unit.setGeometry(QtCore.QRect(120, 30, 131, 31))
+        self.unit.setObjectName("unit")
+        self.perunit = QtWidgets.QLineEdit(Form)
+        self.perunit.setGeometry(QtCore.QRect(360, 30, 131, 31))
+        self.perunit.setObjectName("perunit")
+        self.label_2 = QtWidgets.QLabel(Form)
+        self.label_2.setGeometry(QtCore.QRect(290, 35, 71, 21))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.label_2.setFont(font)
+        self.label_2.setObjectName("label_2")
+        self.tableWidget = QtWidgets.QTableWidget(Form)
+        self.tableWidget.setGeometry(QtCore.QRect(10, 80, 641, 741))
+        self.tableWidget.setMouseTracking(False)
+        self.tableWidget.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
+        self.tableWidget.setObjectName("tableWidget")
+        self.tableWidget.setColumnCount(3)
+        self.tableWidget.setRowCount(19)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setVerticalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setVerticalHeaderItem(1, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setVerticalHeaderItem(2, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setVerticalHeaderItem(3, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setVerticalHeaderItem(4, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setVerticalHeaderItem(5, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setVerticalHeaderItem(6, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setVerticalHeaderItem(7, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setVerticalHeaderItem(8, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setVerticalHeaderItem(9, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setVerticalHeaderItem(10, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setVerticalHeaderItem(11, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setVerticalHeaderItem(12, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setVerticalHeaderItem(13, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setVerticalHeaderItem(14, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setVerticalHeaderItem(15, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setVerticalHeaderItem(16, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setVerticalHeaderItem(17, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setVerticalHeaderItem(18, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(1, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(2, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget.setItem(0, 0, item)
+        self.tableWidget.horizontalHeader().setDefaultSectionSize(195)
+        self.tableWidget.verticalHeader().setDefaultSectionSize(37)
+        self.pushButton = QtWidgets.QPushButton(Form)
+        self.pushButton.setGeometry(QtCore.QRect(530, 30, 93, 28))
+        self.pushButton.setObjectName("pushButton")
+        self.initUI()
+
+        self.retranslateUi(Form)
+        QtCore.QMetaObject.connectSlotsByName(Form)
+
+    def initUI(self):
+        self.pushButton.clicked.connect(self.change)
+
+    def change(self):
+        try:
+            unit = self.unit.text()
+            perunit = float(self.perunit.text())
+        except ValueError:
+            unit = "0"
+            perunit = 0
+        if unit != "" and perunit != 0:
+            for i in range(0, len(self.x), 2):
+                item = QtWidgets.QTableWidgetItem()
+                spx = round(self.x[i] * perunit, 4)
+                spy = round(self.y[i] * perunit, 4)
+                item.setText('(' + str(spx) + ', ' + str(spy) + ')')
+                self.tableWidget.setItem(i/2, 0, item)
+                item = QtWidgets.QTableWidgetItem()
+                epx = round(self.x[i + 1] * perunit, 4)
+                epy = round(self.y[i + 1] * perunit, 4)
+                item.setText('(' + str(epx) + ', ' + str(epy) + ')')
+                self.tableWidget.setItem(i/2, 1, item)
+                length = np.sqrt((epx - spx)**2 + (epy - spy)**2)
+                item = QtWidgets.QTableWidgetItem()
+                item.setText(str(round(length, 4)) + " " + self.unit.text())
+                self.tableWidget.setItem(i/2, 2, item)
+
+    def passValues(self, x, y):
+        self.x = x
+        self.y = y
+
+    def retranslateUi(self, Form):
+        _translate = QtCore.QCoreApplication.translate
+        Form.setWindowTitle(_translate("Form", "Form"))
+        self.label.setText(_translate("Form", "Unit of length"))
+        self.label_2.setText(_translate("Form", "Per unit"))
+        item = self.tableWidget.verticalHeaderItem(0)
+        item.setText(_translate("Form", "I"))
+        item = self.tableWidget.verticalHeaderItem(1)
+        item.setText(_translate("Form", "Iq"))
+        item = self.tableWidget.verticalHeaderItem(2)
+        item.setText(_translate("Form", "Id"))
+        item = self.tableWidget.verticalHeaderItem(3)
+        item.setText(_translate("Form", "U"))
+        item = self.tableWidget.verticalHeaderItem(4)
+        item.setText(_translate("Form", "Uq"))
+        item = self.tableWidget.verticalHeaderItem(5)
+        item.setText(_translate("Form", "Ud"))
+        item = self.tableWidget.verticalHeaderItem(6)
+        item.setText(_translate("Form", "AC"))
+        item = self.tableWidget.verticalHeaderItem(7)
+        item.setText(_translate("Form", "IX(d)"))
+        item = self.tableWidget.verticalHeaderItem(8)
+        item.setText(_translate("Form", "IX\'(d)"))
+        item = self.tableWidget.verticalHeaderItem(9)
+        item.setText(_translate("Form", "IX\"(d)"))
+        item = self.tableWidget.verticalHeaderItem(10)
+        item.setText(_translate("Form", "IX(q)"))
+        item = self.tableWidget.verticalHeaderItem(11)
+        item.setText(_translate("Form", "IX\'(q)"))
+        item = self.tableWidget.verticalHeaderItem(12)
+        item.setText(_translate("Form", "IX\"(q)"))
+        item = self.tableWidget.verticalHeaderItem(13)
+        item.setText(_translate("Form", "ΔE"))
+        item = self.tableWidget.verticalHeaderItem(14)
+        item.setText(_translate("Form", "ΔE\'"))
+        item = self.tableWidget.verticalHeaderItem(15)
+        item.setText(_translate("Form", "ΔE\""))
+        item = self.tableWidget.verticalHeaderItem(16)
+        item.setText(_translate("Form", "E"))
+        item = self.tableWidget.verticalHeaderItem(17)
+        item.setText(_translate("Form", "E\'"))
+        item = self.tableWidget.verticalHeaderItem(18)
+        item.setText(_translate("Form", "E\""))
+        item = self.tableWidget.horizontalHeaderItem(0)
+        item.setText(_translate("Form", "Starting Point"))
+        item = self.tableWidget.horizontalHeaderItem(1)
+        item.setText(_translate("Form", "Ending Point"))
+        item = self.tableWidget.horizontalHeaderItem(2)
+        item.setText(_translate("Form", "Length"))
+        __sortingEnabled = self.tableWidget.isSortingEnabled()
+        self.tableWidget.setSortingEnabled(False)
+        self.tableWidget.setSortingEnabled(__sortingEnabled)
+        self.pushButton.setText(_translate("Form", "Change"))
+
+
