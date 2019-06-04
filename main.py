@@ -32,16 +32,13 @@ class MyWindow(QtWidgets.QMainWindow):
         self.ui2 = Ui_Dialog()
         self.ui2.setupUi(self.window, self.gen)
         self.window.show()
-    #     MainWindow.hide()
-    #     app = pg.mkQApp()
-    #     plotter = plot_diagram.PW()
-    #     plotter.show()
-    #     app.exec_()
+        self.window.setFixedSize(self.window.size())
 
     def closeEvent(self, event):
         self.close()
         try:
             self.window.close()
+            self.ui2.window.close()
         except Exception:
             pass
 

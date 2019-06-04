@@ -1,11 +1,3 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'plot_window.ui'
-#
-# Created by: PyQt5 UI code generator 5.12.1
-#
-# WARNING! All changes made in this file will be lost!
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 from table import Ui_Form
 
@@ -17,12 +9,10 @@ import numpy as np
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog, gen):
-        # I might want to display point coords on hover
         pg.setConfigOption('background', 'w')
         pg.setConfigOption('foreground', 'k')
         Dialog.setObjectName("Dialog")
         Dialog.resize(600, 900)
-        # Dialog
         self.a = 13
         self.i = 0
         self.flag = 0
@@ -37,7 +27,6 @@ class Ui_Dialog(object):
         self.label = QtWidgets.QLabel(Dialog)
         self.label.setGeometry(QtCore.QRect(220, 863, 171, 21))
         self.label.setObjectName("label")
-        # self.gen = Generator()
         self.plotw = PlotWidget(Dialog)
         self.plotw.setGeometry(QtCore.QRect(0, 0, 607, 854))
         self.plotw.setObjectName("plotw")
@@ -45,11 +34,10 @@ class Ui_Dialog(object):
         self.plotw.plot([1, -xrange-0.5], [0, 0], pen='k')
         self.plotw.plot([0, 0], [-1, yrange+0.5], pen='k')
         self.plotw.setXRange(0, -xrange)
-        # self.plotw.setYRange(0, yrange)
         self.plotw.getViewBox().setAspectLocked(True)
         self.plotw.setYRange(0, yrange)
-        self.plotw.getPlotItem().getAxis("bottom").setLabel(text='d[cm]')  # , units="x")
-        self.plotw.getPlotItem().getAxis("left").setLabel(text='q[cm]')  # , units="y")
+        self.plotw.getPlotItem().getAxis("bottom").setLabel(text='d', units='cm')
+        self.plotw.getPlotItem().getAxis("left").setLabel(text='q', units='cm')
         self.plotw.addLegend()
         self.initUI()
 
@@ -101,7 +89,6 @@ class Ui_Dialog(object):
         return xrange, IX[0]
 
     def plotDiag(self):
-        # I need to handle a situation when there are no values yet
         if self.i < 5:
             color = 4
         elif self.i < 11:
@@ -145,6 +132,7 @@ class Ui_Dialog(object):
         self.ui2.setupUi(self.window)
         self.ui2.passValues(self.x, self.y)
         self.window.show()
+        self.window.setFixedSize(self.window.size())
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
