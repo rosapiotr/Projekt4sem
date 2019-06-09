@@ -100,11 +100,11 @@ class Ui_Dialog(object):
                 self.a = 15
                 color = 4
         elif self.i in [self.a + 1, self.a + 7, self.a + 13, self.a + 19]:
-            color = 11
+            color = 0
         elif self.i in [self.a + 3, self.a + 9, self.a + 15, self.a + 21]:
-            color = 12
+            color = 11
         elif self.i in [self.a + 5, self.a + 11, self.a + 17, self.a + 23]:
-            color = 13
+            color = 13.9
 
         pen = pg.mkPen(color, width=3)
         if self.i < self.limit:

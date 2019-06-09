@@ -330,7 +330,7 @@ class Generator:
                 window.ui.Ug.setText("")
                 Ug = 0j
         else:
-            Ug = window.ui.Ug.text()
+            Ug = complex(window.ui.Ug.text())
         try:
             if window.position > 27:
                 Zb = (self.Ub*Ubm)**2/(self.Sb*Sbm)
