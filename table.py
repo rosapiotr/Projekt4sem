@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import numpy as np
+import copy
 
 
 class Ui_Form(object):
@@ -143,8 +144,8 @@ class Ui_Form(object):
                 self.tableWidget.setItem(i/2, 2, item)
 
     def passValues(self, x, y):
-        self.x = x
-        self.y = y
+        self.x = copy.copy(x)
+        self.y = copy.copy(y)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate

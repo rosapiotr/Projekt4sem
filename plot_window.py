@@ -5,6 +5,7 @@ import pyqtgraph as pg
 from pyqtgraph import PlotWidget
 from pyqtgraph.Qt import QtGui, QtCore
 import numpy as np
+import copy
 
 
 class Ui_Dialog(object):
@@ -16,8 +17,7 @@ class Ui_Dialog(object):
         self.a = 13
         self.i = 0
         self.flag = 0
-        self.gen = gen
-        (xrange, yrange) = self.makeVector()
+        self.gen = copy.copy(gen)
         self.next = QtWidgets.QPushButton(Dialog)
         self.next.setGeometry(QtCore.QRect(496, 863, 93, 28))
         self.next.setObjectName("next")
@@ -31,13 +31,13 @@ class Ui_Dialog(object):
         self.plotw.setGeometry(QtCore.QRect(0, 0, 607, 854))
         self.plotw.setObjectName("plotw")
         self.plotw.getViewBox().invertX(True)
-        self.plotw.plot([1, -xrange-0.5], [0, 0], pen='k')
-        self.plotw.plot([0, 0], [-1, yrange+0.5], pen='k')
+        self.plotw.showGrid(x=True, y=True, alpha=0.3)
+        (xrange, yrange) = self.makeVector()
         self.plotw.setXRange(0, -xrange)
         self.plotw.getViewBox().setAspectLocked(True)
         self.plotw.setYRange(0, yrange)
-        self.plotw.getPlotItem().getAxis("bottom").setLabel(text='d', units='cm')
-        self.plotw.getPlotItem().getAxis("left").setLabel(text='q', units='cm')
+        self.plotw.getPlotItem().getAxis("bottom").setLabel(text='d (cm)')
+        self.plotw.getPlotItem().getAxis("left").setLabel(text='q (cm)')
         self.plotw.addLegend()
         self.initUI()
 
@@ -85,6 +85,11 @@ class Ui_Dialog(object):
                            B[0], IX[1], B[0], IX1[1], B[0], IX2[1], 0, IX[1], 0, IX1[1], 0, IX2[1]]
         self.y = self.y + [A[1], C[1], B[1], IX[0], B[1], IX1[0], B[1], IX2[0], IX[0], IX[0], IX1[0], IX1[0], IX2[0],
                            IX2[0], B[1], IX[0], B[1], IX1[0], B[1], IX2[0], 0, IX[0], 0, IX1[0], 0, IX2[0]]
+        self.next.setDisabled(True)
+
+        for xx, yy in zip(self.x, self.y):
+            if xx != 0 or yy != 0:
+                self.next.setDisabled(False)
 
         return xrange, IX[0]
 
